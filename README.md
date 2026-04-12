@@ -24,6 +24,10 @@
 ## 🖥️ Screenshots
 
 > Fill in your stats → Choose your diet preference → Get your full personalised plan instantly
+<img width="1397" height="760" alt="image" src="https://github.com/user-attachments/assets/51fe97dc-64cd-43ac-8f03-3ee97a8b1183" />
+<img width="1301" height="822" alt="image" src="https://github.com/user-attachments/assets/75f38ffc-4719-496f-b2a5-5ae8d4cd74ff" />
+<img width="1320" height="795" alt="image" src="https://github.com/user-attachments/assets/4cff707e-79f3-4b48-9544-8585815849a0" />
+<img width="1156" height="769" alt="image" src="https://github.com/user-attachments/assets/581950f6-8f6b-44f9-94fb-f7d0c26f60ec" />
 
 ---
 
