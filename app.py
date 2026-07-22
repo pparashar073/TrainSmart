@@ -7,7 +7,7 @@ load_dotenv()
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 st.set_page_config(page_title="TrainSmart", page_icon="💪", layout="centered",
-                   initial_sidebar_state="collapsed")
+                   initial_sidebar_state="expanded")
 
 # Light background styling
 st.markdown("""
@@ -20,10 +20,8 @@ st.markdown("""
     h3 { color: #166534; }
 </style>
 """, unsafe_allow_html=True)
-
-st.title("💪 TrainSmart")
-st.subheader("Your AI-powered personal trainer")
-st.markdown("---")
+page = st.sidebar.selectbox("Navigate", ["🏋️ Diet & Workout Planner", "📸 Exercise Form Checker"])
+st.caption("Built by Paras Parashar · TrainSmart v1.0 · Powered by LLaMA 3.3")
 
 # ── User Info Form ──────────────────────────────────────────
 st.markdown("### Tell us about yourself")
@@ -184,4 +182,6 @@ if st.button("🚀 Generate My Personal Plan"):
     )
 
 st.markdown("---")
+if page == "📸 Exercise Form Checker":
+    st.stop()
 st.caption("Built by Paras Parashar · TrainSmart v1.0 · Powered by LLaMA 3.3")
