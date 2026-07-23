@@ -149,7 +149,7 @@ if st.button("🚀 Generate My Personal Plan"):
     st.markdown("### 🏋️ Your Weekly Workout Plan")
     with st.spinner("Generating your workout plan..."):
         workout_response = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
+            model="qwen/qwen3.6-27b",
             messages=[{
                 "role": "user",
                 "content": f"""
@@ -183,5 +183,57 @@ if st.button("🚀 Generate My Personal Plan"):
 
 st.markdown("---")
 if page == "📸 Exercise Form Checker":
+    st.markdown("### 📸 AI Exercise Form Checker")
+    st.markdown("Upload a photo of yourself doing an exercise and get instant AI feedback on your form!")
+    st.markdown("---")
+
+    exercise = st.selectbox("Select Exercise", [
+        "Push Up", "Squat", "Deadlift", "Plank",
+        "Bicep Curl", "Shoulder Press", "Lunge"
+    ])
+
+    uploaded_file = st.file_uploader("Upload your exercise photo", type=["jpg", "jpeg", "png"])
+
+    if uploaded_file is not None:
+        st.image(uploaded_file, caption="Your uploaded photo", use_column_width=True)
+
+        if st.button("🔍 Analyse My Form"):
+            import base64
+            image_data = base64.b64encode(uploaded_file.read()).decode("utf-8")
+            extension = uploaded_file.name.split(".")[-1]
+            image_url = f"data:image/{extension};base64,{image_data}"
+
+            with st.spinner("Analysing your form..."):
+                response = client.chat.completions.create(
+                    model="meta-llama/llama-4-scout-17b-16e-instruct",
+                    messages=[{
+                        "role": "user",
+                        "content": [
+                            {
+                                "type": "image_url",
+                                "image_url": {"url": image_url}
+                            },
+                            {
+                                "type": "text",
+                                "text": f"""You are an expert fitness coach. Analyse the form of this person doing a {exercise}.
+
+Give feedback in this exact format:
+
+✅ What's correct:
+- List what they're doing right
+
+⚠️ What needs improvement:
+- List specific corrections needed
+
+💡 Tips to improve:
+- List 2-3 actionable tips
+
+Keep it friendly, specific and encouraging. If the image doesn't show someone exercising, politely say so."""
+                            }
+                        ]
+                    }]
+                )
+                st.markdown("### 📊 Form Analysis")
+                st.markdown(response.choices[0].message.content)
     st.stop()
 st.caption("Built by Paras Parashar · TrainSmart v1.0 · Powered by LLaMA 3.3")
